@@ -1,15 +1,40 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
+import { FormContext } from '../Contexts';
 
 function ToggleButtons(props)
 {
+	const [form, setForm] = useContext(FormContext);
+
+	const options = props.options.map((option, index) =>
+	{
+		return {
+			title: option,
+			name: option.toLowerCase(),
+			checked: index === 0
+		};
+	});
+
+	function setToggleHandler(e)
+	{
+		let modified_form = form;
+
+		options.map((option, index) =>
+		{
+			modified_form[option.name] = option.name == e.target.dataset.optionname;
+
+		}, modified_form);
+
+		setForm(modified_form);
+	}
+
 	return (
 		<Main style={{ ...props.style }}>
 			{
-				props.options.map((x, i) =>
-					<label key={i}>
-						<input name={props.name} type="radio" defaultChecked={i === 0} />
-						<span>{x}</span>
+				options.map((option, index) =>
+					<label key={index}>
+						<input name={props.name} type="radio" defaultChecked={option.checked} onChange={setToggleHandler} data-optionname={option.name} />
+						<span>{option.title}</span>
 					</label>
 				)
 			}

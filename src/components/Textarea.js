@@ -1,14 +1,29 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
+import CopyBtn from "./CopyBtn";
+import { FormContext } from '../Contexts';
 
 function Textarea(props)
 {
+	const [form, setForm] = useContext(FormContext);
+
 	return (
-		<Main {...props}>
-			{props.children}
-		</Main>
+		<FormContext.Consumer>
+			{formContext =>
+				<Wrapper>
+					{props.copy && <CopyBtn style={{ position: "absolute", right: "5px", top: "5px" }} text={formContext[0].text} ></CopyBtn>}
+					<Main {...props} onChange={(e) => setForm({ ...formContext[0], text: e.target.value })} value={formContext[0].text}>
+						{props.children}
+					</Main>
+				</Wrapper>
+			}
+		</FormContext.Consumer>
 	);
 }
+
+const Wrapper = styled.div`
+	position: relative;
+`;
 
 const Main = styled.textarea`
 	display: block;

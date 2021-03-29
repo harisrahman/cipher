@@ -4,7 +4,7 @@ import styled from 'styled-components';
 function Button(props)
 {
 	return (
-		<Main type={props.type || "button"} {...props}>
+		<Main ref={props.fref} type={props.type || "button"} {...props}>
 			{props.children}
 		</Main>
 	);
@@ -18,8 +18,8 @@ const Main = styled.button`
     vertical-align: middle;
     user-select: none;
     border: 1px solid transparent;
-    padding: .5rem 1.5rem;
-    font-size: 1rem;
+    padding: ${props => props.p || ".5rem 1.5rem"};
+    font-size: ${props => props.font || "1rem"};
     line-height: 1.5;
     border-radius: .25rem;
 	background-color: #000;
