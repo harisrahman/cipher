@@ -1,5 +1,5 @@
 # Simple Cipher
 
-Basic two way substitution cipher made in ReactJS.
+Basic two way cryptographic substitution cipher made in ReactJS.
 
-[Demo](https://github.com/).
+[Demo](https://harisrahman.github.io/cipher/).
